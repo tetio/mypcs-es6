@@ -4,10 +4,10 @@ import companyCtrl from '../../controllers/company.controller'
 
 const router = express.Router()
 
-router.route('/')
+// router
+//   .route('/')
+//   .get(companyCtrl.load)
 
-router
-  .route('/')
-  .get(companyCtrl.get)
+router.route('/create').post(companyCtrl.create)
 
 export default router
