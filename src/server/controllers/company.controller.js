@@ -3,14 +3,26 @@ import Company from '../models/company.model'
 
 /**
  * Load company and append to req.
- */
 function load(req, res, next, id) {
+  console.log('in load @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
   Company.get(String(id))
     .then(company => {
       req.company = company // eslint-disable-line no-param-reassign
       return next()
     })
     .catch(e => next(e))
+}
+
+
+/**
+ * Get company list.
+ * @property {number} req.query.skip - Number of companies to be skipped.
+ * @property {number} req.query.limit - Limit number of companies to be returned.
+ * @returns {Company[]}
+ */
+function list(req, res, next) {
+  const { limit = 50, skip = 0 } = req.query
+  Company.list({ limit, skip }).then(companies => res.json(companies)).catch(e => next(e))
 }
 
 function create(req, res, next) {
@@ -44,8 +56,8 @@ function createCompany() {
     mobile: chance.phone(),
     email: first.toLocaleLowerCase() + '.' + last.toLocaleLowerCase() + '@' + domain,
   }
-  company.primaryContact = contact
+  company.primaryContact = contactcon
   return company
 }
 
-export default { load, create }
+export default { load, list, create }
