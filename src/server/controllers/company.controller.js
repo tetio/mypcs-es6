@@ -1,10 +1,10 @@
 import Chance from 'chance'
 import Company from '../models/company.model'
 
-/**
- * Load company and append to req.
 function load(req, res, next, id) {
-  console.log('in load @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+  console.log(
+    'in load @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@',
+  )
   Company.get(String(id))
     .then(company => {
       req.company = company // eslint-disable-line no-param-reassign
@@ -12,7 +12,6 @@ function load(req, res, next, id) {
     })
     .catch(e => next(e))
 }
-
 
 /**
  * Get company list.
